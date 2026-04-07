@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forms - The Secret Garden Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF8F2;
+            --panel: #FFFFFF;
+            --accent: #7A9E7E;
+            --accent-dark: #5D7C5A;
+            --text: #2F3F32;
+            --muted: #6A7B6A;
+            --button: #F4C2C2;
+            --button-hover: #FAD6C9;
+            --error: #e90281;
+            --success: #71ad71;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, nav a, .logo {
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+
+        header {
+            background-color: #FFFFFF;
+            padding: 20px 40px;
+            border-bottom: 1px solid #E2E5E1;
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-dark);
+        }
+
+        .hero {
+            display: grid;
+            gap: 24px;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, rgba(250,240,230,1) 0%, rgba(255,248,242,1) 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--accent-dark);
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .main-content {
+            padding: 60px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .forms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 50px;
+        }
+
+        .form-section {
+            background-color: var(--panel);
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(105, 119, 104, 0.08);
+        }
+
+        .form-section h2 {
+            color: var(--accent-dark);
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 15px;
+        }
+
+        .form-description {
+            color: var(--muted);
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        form {
+            display: grid;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: grid;
+            gap: 8px;
+        }
+
+        label {
+            color: var(--text);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="number"],
+        textarea,
+        select {
+            padding: 12px;
+            border: 2px solid #E2E5E1;
+            border-radius: 8px;
+            font-family: 'Inter', Arial, sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background-color: #FAFBFA;
+            transition: border-color 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="tel"]:focus,
+        input[type="number"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--accent);
+            background-color: #FFFFFF;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-group,
+        .radio-group {
+            display: grid;
+            gap: 10px;
+        }
+
+        .checkbox-item,
+        .radio-item {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .checkbox-item label,
+        .radio-item label {
+            margin: 0;
+            font-weight: 400;
+            cursor: pointer;
+        }
+
+        .error-message {
+            color: var(--error);
+            font-size: 0.9rem;
+            margin-top: -5px;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        input.error,
+        textarea.error,
+        select.error {
+            border-color: var(--error);
+            background-color: #FFF5F5;
+        }
+
+        .success-message {
+            background-color: #F0FFF0;
+            border: 2px solid var(--success);
+            color: var(--success);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            font-weight: 600;
+        }
+
+        .success-message.show {
+            display: block;
+        }
+
+        .form-actions {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        button {
+            background-color: var(--button);
+            color: var(--text);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background-color 0.2s ease;
+            flex: 1;
+        }
+
+        button:hover {
+            background-color: var(--button-hover);
+        }
+
+        button[type="reset"] {
+            background-color: #E2E5E1;
+            color: var(--text);
+        }
+
+        button[type="reset"]:hover {
+            background-color: #D3D8D0;
+        }
+
+        .required {
+            color: var(--error);
+        }
+
+        footer {
+            background-color: var(--accent);
+            color: white;
+            padding: 32px 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .forms-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-section {
+                padding: 25px;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">The Secret Garden</div>
+            <nav>
+                <a href="../term project/term_project.html">Home</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="shopnow.html">Shop</a>
+                <a href="contact.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Stay Connected & Get in Touch</h1>
+        <p>We'd love to hear from you! Sign up for our newsletter, request a custom quote, or send us your feedback.</p>
+    </section>
+
+    <div class="main-content">
+        <div class="forms-grid">
+            <!-- Newsletter Sign-up Form -->
+            <section class="form-section">
+                <h2>Newsletter Sign-Up</h2>
+                <p class="form-description">Get exclusive offers, seasonal arrangements, and floral tips delivered to your inbox.</p>
+                
+                <div class="success-message" id="newsletterSuccess">
+                    ✓ Successfully subscribed to our newsletter!
+                </div>
+
+                <form id="newsletterForm">
+                    <div class="form-group">
+                        <label for="newsletter-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="newsletter-name" name="name" required>
+                        <span class="error-message" id="newsletter-name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newsletter-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="newsletter-email" name="email" required>
+                        <span class="error-message" id="newsletter-email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Interests <span class="required">*</span></label>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="weddings" name="interests" value="weddings">
+                                <label for="weddings">Weddings</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="anniversaries" name="interests" value="anniversaries">
+                                <label for="anniversaries">Anniversaries</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="birthdays" name="interests" value="birthdays">
+                                <label for="birthdays">Birthdays</label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="seasonal" name="interests" value="seasonal">
+                                <label for="seasonal">Seasonal Specials</label>
+                            </div>
+                        </div>
+                        <span class="error-message" id="newsletter-interests-error"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit">Subscribe</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Request a Quote Form -->
+            <section class="form-section">
+                <h2>Request a Quote</h2>
+                <p class="form-description">Need a custom arrangement or special design? Tell us about your event and we'll provide a personalized quote.</p>
+                
+                <div class="success-message" id="quoteSuccess">
+                    ✓ Quote request submitted successfully!
+                </div>
+
+                <form id="quoteForm">
+                    <div class="form-group">
+                        <label for="quote-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="quote-name" name="name" required>
+                        <span class="error-message" id="quote-name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="quote-email" name="email" required>
+                        <span class="error-message" id="quote-email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="quote-phone" name="phone" required>
+                        <span class="error-message" id="quote-phone-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-event">Event Type <span class="required">*</span></label>
+                        <select id="quote-event" name="eventType" required>
+                            <option value="">-- Select an event --</option>
+                            <option value="wedding">Wedding</option>
+                            <option value="anniversary">Anniversary</option>
+                            <option value="birthday">Birthday</option>
+                            <option value="corporate">Corporate Event</option>
+                            <option value="funeral">Funeral/Memorial</option>
+                            <option value="other">Other</option>
+                        </select>
+                        <span class="error-message" id="quote-event-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-date">Event Date <span class="required">*</span></label>
+                        <input type="text" id="quote-date" name="eventDate" placeholder="MM/DD/YYYY" required>
+                        <span class="error-message" id="quote-date-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-budget">Budget Range <span class="required">*</span></label>
+                        <select id="quote-budget" name="budget" required>
+                            <option value="">-- Select range --</option>
+                            <option value="100-250">$100 - $250</option>
+                            <option value="250-500">$250 - $500</option>
+                            <option value="500-1000">$500 - $1000</option>
+                            <option value="1000+">$1000+</option>
+                        </select>
+                        <span class="error-message" id="quote-budget-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="quote-details">Event Details <span class="required">*</span></label>
+                        <textarea id="quote-details" name="details" placeholder="Tell us about your event, preferences, and any special requests..." required></textarea>
+                        <span class="error-message" id="quote-details-error"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit">Request Quote</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Feedback Form -->
+            <section class="form-section">
+                <h2>Send Us Feedback</h2>
+                <p class="form-description">We value your feedback! Let us know about your experience with The Secret Garden Shop.</p>
+                
+                <div class="success-message" id="feedbackSuccess">
+                    ✓ Thank you! Your feedback has been received.
+                </div>
+
+                <form id="feedbackForm">
+                    <div class="form-group">
+                        <label for="feedback-name">Full Name <span class="required">*</span></label>
+                        <input type="text" id="feedback-name" name="name" required>
+                        <span class="error-message" id="feedback-name-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="feedback-email" name="email" required>
+                        <span class="error-message" id="feedback-email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Feedback Type <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <div class="radio-item">
+                                <input type="radio" id="praise" name="feedbackType" value="praise" required>
+                                <label for="praise">Praise</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="suggestion" name="feedbackType" value="suggestion">
+                                <label for="suggestion">Suggestion</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="complaint" name="feedbackType" value="complaint">
+                                <label for="complaint">Complaint</label>
+                            </div>
+                            <div class="radio-item">
+                                <input type="radio" id="other-feedback" name="feedbackType" value="other">
+                                <label for="other-feedback">Other</label>
+                            </div>
+                        </div>
+                        <span class="error-message" id="feedback-type-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedback-message">Your Message <span class="required">*</span></label>
+                        <textarea id="feedback-message" name="message" placeholder="Please share your feedback..." required></textarea>
+                        <span class="error-message" id="feedback-message-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" id="feedback-contact" name="allowContact" value="yes">
+                        <label for="feedback-contact">You may contact me to discuss this feedback</label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit">Send Feedback</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Membership Registration Form -->
+            <section class="form-section">
+                <h2>Membership Registration</h2>
+                <p class="form-description">Join our exclusive membership program and enjoy special discounts and early access to new collections.</p>
+                
+                <div class="success-message" id="membershipSuccess">
+                    ✓ Membership registration successful! Check your email for details.
+                </div>
+
+                <form id="membershipForm">
+                    <div class="form-group">
+                        <label for="member-first">First Name <span class="required">*</span></label>
+                        <input type="text" id="member-first" name="firstName" required>
+                        <span class="error-message" id="member-first-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="member-last">Last Name <span class="required">*</span></label>
+                        <input type="text" id="member-last" name="lastName" required>
+                        <span class="error-message" id="member-last-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="member-email">Email Address <span class="required">*</span></label>
+                        <input type="email" id="member-email" name="email" required>
+                        <span class="error-message" id="member-email-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="member-phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="member-phone" name="phone" required>
+                        <span class="error-message" id="member-phone-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="member-password">Password <span class="required">*</span></label>
+                        <input type="text" id="member-password" name="password" placeholder="Minimum 8 characters" required>
+                        <span class="error-message" id="member-password-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="member-confirm">Confirm Password <span class="required">*</span></label>
+                        <input type="text" id="member-confirm" name="confirmPassword" placeholder="Re-enter password" required>
+                        <span class="error-message" id="member-confirm-error"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <input type="checkbox" id="member-terms" name="terms" required>
+                        <label for="member-terms">I agree to the Terms and Conditions <span class="required">*</span></label>
+                        <span class="error-message" id="member-terms-error"></span>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit">Register</button>
+                        <button type="reset">Clear</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 The Secret Garden Shop. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Newsletter Form Validation
+        const newsletterForm = document.getElementById('newsletterForm');
+        if (newsletterForm) {
+            newsletterForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateNewsletterForm()) {
+                    displaySuccessMessage('newsletterSuccess');
+                    newsletterForm.reset();
+                    setTimeout(() => {
+                        document.getElementById('newsletterSuccess').classList.remove('show');
+                    }, 4000);
+                }
+            });
+        }
+
+        function validateNewsletterForm() {
+            let isValid = true;
+            const name = document.getElementById('newsletter-name');
+            const email = document.getElementById('newsletter-email');
+            const interests = document.querySelectorAll('input[name="interests"]:checked');
+
+            // Clear previous errors
+            clearErrors(['newsletter-name', 'newsletter-email', 'newsletter-interests']);
+
+            // Validate name
+            if (name.value.trim().length < 2) {
+                showError('newsletter-name', 'Name must be at least 2 characters');
+                isValid = false;
+            }
+
+            // Validate email
+            if (!isValidEmail(email.value)) {
+                showError('newsletter-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            // Validate at least one interest selected
+            if (interests.length === 0) {
+                showError('newsletter-interests', 'Please select at least one interest');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Quote Form Validation
+        const quoteForm = document.getElementById('quoteForm');
+        if (quoteForm) {
+            quoteForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateQuoteForm()) {
+                    displaySuccessMessage('quoteSuccess');
+                    quoteForm.reset();
+                    setTimeout(() => {
+                        document.getElementById('quoteSuccess').classList.remove('show');
+                    }, 4000);
+                }
+            });
+        }
+
+        function validateQuoteForm() {
+            let isValid = true;
+            const name = document.getElementById('quote-name');
+            const email = document.getElementById('quote-email');
+            const phone = document.getElementById('quote-phone');
+            const eventType = document.getElementById('quote-event');
+            const eventDate = document.getElementById('quote-date');
+            const budget = document.getElementById('quote-budget');
+            const details = document.getElementById('quote-details');
+
+            clearErrors(['quote-name', 'quote-email', 'quote-phone', 'quote-event', 'quote-date', 'quote-budget', 'quote-details']);
+
+            if (name.value.trim().length < 2) {
+                showError('quote-name', 'Name must be at least 2 characters');
+                isValid = false;
+            }
+
+            if (!isValidEmail(email.value)) {
+                showError('quote-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!isValidPhone(phone.value)) {
+                showError('quote-phone', 'Please enter a valid phone number');
+                isValid = false;
+            }
+
+            if (eventType.value === '') {
+                showError('quote-event', 'Please select an event type');
+                isValid = false;
+            }
+
+            if (!isValidDate(eventDate.value)) {
+                showError('quote-date', 'Please enter a valid date (MM/DD/YYYY)');
+                isValid = false;
+            }
+
+            if (budget.value === '') {
+                showError('quote-budget', 'Please select a budget range');
+                isValid = false;
+            }
+
+            if (details.value.trim().length < 10) {
+                showError('quote-details', 'Please provide at least 10 characters of detail');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Feedback Form Validation
+        const feedbackForm = document.getElementById('feedbackForm');
+        if (feedbackForm) {
+            feedbackForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateFeedbackForm()) {
+                    displaySuccessMessage('feedbackSuccess');
+                    feedbackForm.reset();
+                    setTimeout(() => {
+                        document.getElementById('feedbackSuccess').classList.remove('show');
+                    }, 4000);
+                }
+            });
+        }
+
+        function validateFeedbackForm() {
+            let isValid = true;
+            const name = document.getElementById('feedback-name');
+            const email = document.getElementById('feedback-email');
+            const feedbackType = document.querySelector('input[name="feedbackType"]:checked');
+            const message = document.getElementById('feedback-message');
+
+            clearErrors(['feedback-name', 'feedback-email', 'feedback-type', 'feedback-message']);
+
+            if (name.value.trim().length < 2) {
+                showError('feedback-name', 'Name must be at least 2 characters');
+                isValid = false;
+            }
+
+            if (!isValidEmail(email.value)) {
+                showError('feedback-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!feedbackType) {
+                showError('feedback-type', 'Please select a feedback type');
+                isValid = false;
+            }
+
+            if (message.value.trim().length < 10) {
+                showError('feedback-message', 'Please provide at least 10 characters');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Membership Form Validation
+        const membershipForm = document.getElementById('membershipForm');
+        if (membershipForm) {
+            membershipForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (validateMembershipForm()) {
+                    displaySuccessMessage('membershipSuccess');
+                    membershipForm.reset();
+                    setTimeout(() => {
+                        document.getElementById('membershipSuccess').classList.remove('show');
+                    }, 4000);
+                }
+            });
+        }
+
+        function validateMembershipForm() {
+            let isValid = true;
+            const firstName = document.getElementById('member-first');
+            const lastName = document.getElementById('member-last');
+            const email = document.getElementById('member-email');
+            const phone = document.getElementById('member-phone');
+            const password = document.getElementById('member-password');
+            const confirmPassword = document.getElementById('member-confirm');
+            const terms = document.getElementById('member-terms');
+
+            clearErrors(['member-first', 'member-last', 'member-email', 'member-phone', 'member-password', 'member-confirm', 'member-terms']);
+
+            if (firstName.value.trim().length < 2) {
+                showError('member-first', 'First name must be at least 2 characters');
+                isValid = false;
+            }
+
+            if (lastName.value.trim().length < 2) {
+                showError('member-last', 'Last name must be at least 2 characters');
+                isValid = false;
+            }
+
+            if (!isValidEmail(email.value)) {
+                showError('member-email', 'Please enter a valid email address');
+                isValid = false;
+            }
+
+            if (!isValidPhone(phone.value)) {
+                showError('member-phone', 'Please enter a valid phone number');
+                isValid = false;
+            }
+
+            if (password.value.length < 8) {
+                showError('member-password', 'Password must be at least 8 characters');
+                isValid = false;
+            }
+
+            if (password.value !== confirmPassword.value) {
+                showError('member-confirm', 'Passwords do not match');
+                isValid = false;
+            }
+
+            if (!terms.checked) {
+                showError('member-terms', 'You must agree to the terms');
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        // Helper Functions
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        function isValidPhone(phone) {
+            const phoneRegex = /^[\d\s\-\(\)\+]{10,}$/;
+            return phoneRegex.test(phone.replace(/\D/g, '')) && phone.replace(/\D/g, '').length >= 10;
+        }
+
+        function isValidDate(dateString) {
+            const dateRegex = /^(0[1-9]|1[0-2])\/(0[1-9]|[12]\d|3[01])\/\d{4}$/;
+            return dateRegex.test(dateString);
+        }
+
+        function showError(fieldId, message) {
+            const field = document.getElementById(fieldId);
+            const errorElement = document.getElementById(fieldId + '-error');
+            field.classList.add('error');
+            errorElement.textContent = message;
+            errorElement.classList.add('show');
+        }
+
+        function clearErrors(fieldIds) {
+            fieldIds.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                const errorElement = document.getElementById(fieldId + '-error');
+                if (field) {
+                    field.classList.remove('error');
+                }
+                if (errorElement) {
+                    errorElement.textContent = '';
+                    errorElement.classList.remove('show');
+                }
+            });
+        }
+
+        function displaySuccessMessage(messageId) {
+            document.getElementById(messageId).classList.add('show');
+        }
+
+        // Real-time validation for email fields
+        document.addEventListener('blur', function(e) {
+            if (e.target.type === 'email' && e.target.value && !isValidEmail(e.target.value)) {
+                e.target.classList.add('error');
+            } else if (e.target.type === 'email') {
+                e.target.classList.remove('error');
+            }
+        }, true);
+    </script>
+</body>
+</html>

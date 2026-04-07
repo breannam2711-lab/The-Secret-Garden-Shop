@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - The Secret Garden Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF8F2;
+            --panel: #FFFFFF;
+            --accent: #7A9E7E;
+            --accent-dark: #5D7C5A;
+            --text: #2F3F32;
+            --muted: #6A7B6A;
+            --button: #F4C2C2;
+            --button-hover: #FAD6C9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, nav a, .logo {
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+
+        header {
+            background-color: #FFFFFF;
+            padding: 20px 40px;
+            border-bottom: 1px solid #E2E5E1;
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-dark);
+        }
+
+        .hero {
+            display: grid;
+            gap: 24px;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, rgba(250,240,230,1) 0%, rgba(255,248,242,1) 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--accent-dark);
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .content-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 80px 40px;
+        }
+
+        .content-section h2 {
+            color: var(--accent-dark);
+            font-size: 2.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .history-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .history-text {
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+
+        .history-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .history-image img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .mission-vision {
+            background-color: var(--panel);
+            padding: 60px;
+            border-radius: 16px;
+            margin: 40px 0;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+        }
+
+        .mission-vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+        }
+
+        .mission-vision-item h3 {
+            color: var(--accent-dark);
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+        }
+
+        .mission-vision-item p {
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+
+        .team-section {
+            text-align: center;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .team-member {
+            background-color: var(--panel);
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-member img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 4px solid var(--accent);
+        }
+
+        .team-member h4 {
+            color: var(--accent-dark);
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .team-member .role {
+            color: var(--muted);
+            font-weight: 500;
+            margin-bottom: 16px;
+        }
+
+        .team-member p {
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: var(--text);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .history-content,
+            .mission-vision-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .content-section {
+                padding: 60px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">The Secret Garden Shop</div>
+            <nav>
+                <a href="../term project/term_project.html">Home</a>
+                <a href="aboutus.html">About</a>
+                <a href="shopnow.html">Products</a>
+                <a href="forms.html">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>About The Secret Garden Shop</h1>
+        <p>Discover the story behind our passion for bringing nature's beauty into your home. From humble beginnings to becoming your trusted source for exquisite floral arrangements and garden supplies.</p>
+    </section>
+
+    <section class="content-section">
+        <h2>Our History</h2>
+        <div class="history-content">
+            <div class="history-text">
+                <p>Founded in 2012 by passionate botanist Anna Browne, The Secret Garden Shop began as a small roadside stand offering fresh-cut flowers from local gardens. What started as a weekend hobby quickly blossomed into a beloved community staple.</p>
+                <p>Over the years, we've expanded our offerings to include rare exotic plants, artisanal gardening tools, and comprehensive landscaping services. Our commitment to sustainability and supporting local growers has remained at the heart of everything we do.</p>
+                <p>Today, we proudly serve thousands of customers across the region, helping them create their own secret gardens and bringing the joy of nature into countless homes and businesses.</p>
+            </div>
+            <div class="history-image">
+                <img src="images/a-flower-shop-with-potted-plants-and-a-wooden-door-photo.jpeg" alt="Our first shop location">
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="mission-vision">
+            <div class="mission-vision-grid">
+                <div class="mission-vision-item">
+                    <h3>Our Mission</h3>
+                    <p>To cultivate beauty and connection through nature, providing exceptional floral arrangements and gardening resources that inspire creativity and bring joy to our customers' lives.</p>
+                </div>
+                <div class="mission-vision-item">
+                    <h3>Our Vision</h3>
+                    <p>To be the premier destination for floral excellence and gardening expertise, fostering a community where everyone can discover the transformative power of nature in their daily lives.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section team-section">
+        <h2>Meet Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="images/avatar.png" alt="Anna Browne">
+                <h4>Anna Browne</h4>
+                <div class="role">Founder & Head Florist</div>
+                <p>With over 15 years of experience in floral design, Anna's passion for botany and artistic vision drives our creative direction. She's certified in sustainable floristry practices.</p>
+            </div>
+            <div class="team-member">
+                <img src="images/avatar.png" alt="Marcus Chen">
+                <h4>Marcus Chen</h4>
+                <div class="role">Garden Consultant</div>
+                <p>Marcus specializes in landscape design and plant selection. His expertise helps customers create thriving gardens that match their lifestyle and local climate conditions.</p>
+            </div>
+            <div class="team-member">
+                <img src="images/avatar.png" alt="Sarah Johnson">
+                <h4>Sarah Johnson</h4>
+                <div class="role">Customer Experience Manager</div>
+                <p>Sarah ensures every customer interaction is memorable. Her background in hospitality combined with her love for plants makes her the perfect bridge between our team and our valued customers.</p>
+            </div>
+            <div class="team-member">
+                <img src="images/avatar.png" alt="David Kim">
+                <h4>David Kim</h4>
+                <div class="role">Sustainability Coordinator</div>
+                <p>David leads our environmental initiatives, working with local farms and implementing eco-friendly practices throughout our operations to minimize our ecological footprint.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 The Secret Garden Shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

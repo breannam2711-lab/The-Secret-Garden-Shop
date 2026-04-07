@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - The Secret Garden Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #FFF8F2;
+            --panel: #FFFFFF;
+            --accent: #7A9E7E;
+            --accent-dark: #5D7C5A;
+            --text: #2F3F32;
+            --muted: #6A7B6A;
+            --button: #F4C2C2;
+            --button-hover: #FAD6C9;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, nav a, .logo {
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+
+        header {
+            background-color: #FFFFFF;
+            padding: 20px 40px;
+            border-bottom: 1px solid #E2E5E1;
+        }
+
+        .top-bar {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            letter-spacing: 0.08em;
+            color: var(--accent-dark);
+            text-transform: uppercase;
+        }
+
+        nav {
+            display: flex;
+            justify-content: flex-end;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav a:hover {
+            color: var(--accent-dark);
+        }
+
+        .hero {
+            display: grid;
+            gap: 24px;
+            padding: 60px 40px;
+            background: linear-gradient(180deg, rgba(250,240,230,1) 0%, rgba(255,248,242,1) 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--accent-dark);
+        }
+
+        .hero p {
+            max-width: 640px;
+            margin: 0 auto;
+            color: var(--muted);
+            font-size: 1.05rem;
+        }
+
+        .main-content {
+            padding: 60px 40px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 80px;
+        }
+
+        .section-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 40px;
+            gap: 20px;
+            border-bottom: 3px solid var(--accent);
+            padding-bottom: 20px;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--accent-dark);
+            margin: 0;
+            flex: 1;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 1rem;
+            max-width: 500px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--panel);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(105, 119, 104, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 40px rgba(105, 119, 104, 0.15);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, rgba(122, 158, 126, 0.1) 0%, rgba(244, 194, 194, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: rgba(122, 158, 126, 0.3);
+        }
+
+        .product-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-card h3 {
+            color: var(--accent-dark);
+            font-size: 1.4rem;
+            margin: 0 0 10px 0;
+        }
+
+        .product-price {
+            color: var(--accent);
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin: 5px 0 15px 0;
+        }
+
+        .product-description {
+            color: var(--text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .product-details {
+            background-color: #F9F6F3;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+
+        .product-details strong {
+            color: var(--accent-dark);
+        }
+
+        .add-to-cart {
+            background-color: var(--button);
+            color: var(--text);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+            width: 100%;
+        }
+
+        .add-to-cart:hover {
+            background-color: var(--button-hover);
+        }
+
+        .category-filter {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            background-color: var(--panel);
+            color: var(--text);
+            border: 2px solid var(--accent);
+            padding: 10px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        footer {
+            background-color: var(--accent);
+            color: white;
+            padding: 32px 40px;
+            text-align: center;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .product-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 12px;
+            }
+        }
+
+        .cart-section {
+            margin-bottom: 50px;
+        }
+
+        .cart-panel {
+            background-color: var(--panel);
+            border: 1px solid #EAEDEA;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(105, 119, 104, 0.1);
+            display: grid;
+            gap: 20px;
+        }
+
+        .cart-items {
+            list-style: none;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 18px;
+            background-color: #F9F6F3;
+            border-radius: 12px;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: var(--accent-dark);
+        }
+
+        .cart-item-price {
+            color: var(--text);
+        }
+
+        .cart-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .cart-total {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent-dark);
+        }
+
+        #checkoutButton {
+            background-color: var(--button);
+            border: none;
+            color: var(--text);
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            transition: background-color 0.2s ease;
+        }
+
+        #checkoutButton:hover {
+            background-color: var(--button-hover);
+        }
+
+        #checkoutButton:disabled {
+            background-color: #E2E5E1;
+            cursor: not-allowed;
+        }
+
+        .cart-empty {
+            text-align: center;
+            color: var(--muted);
+            font-style: italic;
+        }
+
+        .cart-remove {
+            background: none;
+            border: none;
+            color: var(--accent);
+            cursor: pointer;
+            font-size: 0.9rem;
+            text-decoration: underline;
+        }
+
+        .cart-remove:hover {
+            color: var(--accent-dark);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <div class="logo">The Secret Garden</div>
+            <nav>
+                <a href="../term project/term_project.html">Home</a>
+                <a href="aboutus.html">About Us</a>
+                <a href="shopnow.html">Shop</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h1>Our Floral Collections</h1>
+        <p>Explore our carefully curated selection of exquisite floral arrangements, each handcrafted with love and attention to detail.</p>
+    </section>
+
+    <div class="main-content">
+        <!-- Featured Arrangements -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Featured Arrangements</h2>
+                <p class="section-description">Our most popular and beloved floral creations</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    
+                    <div class="product-content">
+                        <img src="images/a-bouquet-of-flowers-with-a-white-rose-in-the-middle-photo.jpeg" alt="Morning Bloom Bouquet">
+                        <h3>Morning Bloom Bouquet</h3>
+                        <div class="product-price">$120</div>
+                        <p class="product-description">An uplifting mix of roses, lilies, and seasonal greenery in soft peach tones.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (16" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    
+                    <div class="product-content">
+                        <img src="images/a-luxurious-bouquet-of-red-roses-dahlias-and-amaryllis-in-a-glass-vase-photo.jpg" alt="Sunset Romance">
+                        <h3>Sunset Romance</h3>
+                        <div class="product-price">$140</div>
+                        <p class="product-description">Deep burgundy roses tucked with coral spray roses and eucalyptus for a dramatic effect.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                         <img src="images/colorful-flower-bouquet-with-roses-daisies-and-various-blossoms-arranged-with-green-leaves-on-white-surface-creating-vibrant-and-cheerful-floral-display-free-photo.jpeg" alt="Garden Fresh Mix - vibrant mixed flower bouquet">
+                        <h3>Garden Fresh Mix</h3>
+                        <div class="product-price">$100</div>
+                        <p class="product-description">A vibrant combination of garden roses, daisies, and wildflowers in a rustic arrangement.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (15" diameter)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">                   
+                    <div class="product-content">
+                        <img src="images/elegant-floral-arrangement-of-soft-pastel-blooms-and-lush-green-foliage-photo.jpeg" alt="Elegant White Lilies - sophisticated white floral arrangement">
+                        <h3>Elegant White Lilies</h3>
+                        <div class="product-price">$130</div>
+                        <p class="product-description">Pure white lilies and roses with touches of baby's breath for sophisticated elegance.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wedding Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Wedding Collections</h2>
+                <p class="section-description">Elegant arrangements for your special day</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">                  
+                    <div class="product-content">
+                        <img src="images/a-bouquet-of-white-roses-and-greenery-photo.jpg" alt="Classic Bridal Bouquet - white roses with greenery">
+                        <h3>Classic Bridal Bouquet</h3>
+                        <div class="product-price">$250</div>
+                        <p class="product-description">A timeless combination of white roses, peonies, and delicate baby's breath. Perfect for a traditional wedding ceremony.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" diameter)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">                  
+                    <div class="product-content">
+                        <img src="images/elegant-rose-and-eucalyptus-bouquet-on-wooden-background-photo.jpg" alt="Romantic Garden Romance - blush and cream roses with eucalyptus">
+                        <h3>Romantic Garden Romance</h3>
+                        <div class="product-price">$280</div>
+                        <p class="product-description">A romantic mix of blush roses, cream garden roses, and eucalyptus. Creates an elegant and romantic aesthetic.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (20" diameter)<br>
+                            <strong>Available:</strong> April to October
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">                  
+                    <div class="product-content">
+                        <img src="images/calla-lily-wedding-bouquet-flower-on-blurred-window-background-ai-generated-photo.jpg" alt="Modern Minimalist - white calla lilies wedding bouquet">
+                        <h3>Modern Minimalist</h3>
+                        <div class="product-price">$220</div>
+                        <p class="product-description">Clean lines with white calla lilies, tied with pure white ribbon. Perfect for contemporary weddings.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (16" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Anniversary Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Anniversary Collections</h2>
+                <p class="section-description">Celebrate love and cherished memories</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/pexels-sea-inside-of-me-11626588.jpg" alt="Red Rose Anniversary - luxurious red roses bouquet">
+                        <h3>Red Rose Anniversary</h3>
+                        <div class="product-price">$120</div>
+                        <p class="product-description">Luxurious red roses symbolizing deep love and passion. A classic choice for anniversaries of all milestones.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (12 stems)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/a-colorful-arrangement-of-tropical-flowers-in-a-basket-photo.jpg" alt="Tropical Paradise - tropical orchids and birds of paradise">
+                        <h3>Tropical Paradise</h3>
+                        <div class="product-price">$145</div>
+                        <p class="product-description">Vibrant mix of tropical orchids, birds of paradise, and anthurium. Bring warmth and exotic beauty to your celebration.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" height)<br>
+                            <strong>Available:</strong> May to September
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                          <img src="images/beautiful-floral-arrangement-white-vase-photo.jpg" alt="Peachy Perfection - soft peach spray roses arrangement">
+                        <h3>Peachy Perfection</h3>
+                        <div class="product-price">$130</div>
+                        <p class="product-description">Soft peach tones with spray roses and hypericum berries. A beautiful symbol of admiration and appreciation.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (14" diameter)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Birthday Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Birthday Collections</h2>
+                <p class="section-description">Add joy and celebration to special birthdays</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/a-bouquet-of-colorful-flowers-in-a-vase-on-a-table-photo.jpg" alt="Sunshine Celebration - bright sunflowers and yellow roses">
+                        <h3>Sunshine Celebration</h3>
+                        <div class="product-price">$95</div>
+                        <p class="product-description">Bright and cheerful arrangement featuring sunflowers, yellow roses, and daisies. Perfect for spreading joy and happiness.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (16" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/vecteezy_flowers-background-flowers-wallpaper-vibrant-bouquet-of_71374147.jpg" alt="Rainbow Delight - multicolored gerbera daisies arrangement">
+                        <h3>Rainbow Delight</h3>
+                        <div class="product-price">$110</div>
+                        <p class="product-description">A vibrant multicolored arrangement featuring gerbera daisies in every hue of the rainbow. Fun and energetic.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" diameter)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/a-stunning-lush-floral-arrangement-composed-of-vibrant-orange-red-and-magenta-flowers-forming-an-arch-on-a-dark-surface-photo.jpg" alt="Festive Fiesta - bold hot pink, orange and purple flowers">
+                        <h3>Festive Fiesta</h3>
+                        <div class="product-price">$125</div>
+                        <p class="product-description">Bold and colorful with hot pink, orange, and purple blooms. A playful and festive arrangement for any celebration.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (20" height)<br>
+                            <strong>Available:</strong> Year-round
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seasonal Section -->
+        <section class="section">
+            <div class="section-title">
+                <h2>Seasonal Specials</h2>
+                <p class="section-description">Celebrate the seasons with fresh, timely arrangements</p>
+            </div>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/colorful-spring-bouquet-with-tulips-hyacinths-and-daffodils-photo.jpg" alt="Spring Fresh - soft pastel tulips, hyacinths and daffodils">
+                        <h3>Spring Fresh</h3>
+                        <div class="product-price">$85</div>
+                        <p class="product-description">Celebrate spring with tulips, daffodils, and hyacinths in soft pastels. Fresh and full of the season's promise.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Medium (14" height)<br>
+                            <strong>Available:</strong> March to May
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/floral-arrangement-in-warm-tones-a-study-in-texture-and-color-harmony-close-up-view-photo.jpg" alt="Autumn Harvest - rich warm tones with dahlias and chrysanthemums">
+                        <h3>Autumn Harvest</h3>
+                        <div class="product-price">$105</div>
+                        <p class="product-description">Rich autumn tones featuring dahlias, chrysanthemums, and fall foliage. Warm and inviting for harvest season.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (18" diameter)<br>
+                            <strong>Available:</strong> September to November
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-content">
+                        <img src="images/vecteezy_elegant-winter-white-floral-arrangement-with-festive-sparkle_74041615.jpg" alt="Winter Wonderland - white and icy blue holiday floral arrangement">
+                        <h3>Winter Wonderland</h3>
+                        <div class="product-price">$115</div>
+                        <p class="product-description">Winter whites and icy blues with evergreens, white roses, and silver accents. Pure holiday elegance.</p>
+                        <div class="product-details">
+                            <strong>Size:</strong> Large (20" height)<br>
+                            <strong>Available:</strong> November to January
+                        </div>
+                        <button class="add-to-cart">Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="cart-section">
+        <div class="cart-panel">
+            <h3>Your Cart</h3>
+            <ul class="cart-items" id="cartItems"></ul>
+            <p class="cart-empty" id="cartEmpty">Your cart is empty. Add some beautiful flowers!</p>
+            <div class="cart-footer">
+                <div class="cart-total" id="cartTotal">Total: $0.00</div>
+                <button id="checkoutButton" disabled>Checkout</button>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 The Secret Garden Shop. All rights reserved. Proudly serving your floral needs.</p>
+    </footer>
+
+    <script>
+        const cart = [];
+        const cartItemsElement = document.getElementById('cartItems');
+        const cartTotalElement = document.getElementById('cartTotal');
+        const cartEmptyElement = document.getElementById('cartEmpty');
+        const checkoutButton = document.getElementById('checkoutButton');
+
+        document.querySelectorAll('.add-to-cart').forEach(button => {
+            button.addEventListener('click', () => {
+                const card = button.closest('.product-card');
+                const name = card.querySelector('h3').textContent;
+                const priceText = card.querySelector('.product-price').textContent;
+                const price = parseFloat(priceText.replace(/[^0-9.]/g, ''));
+                cart.push({ name, price });
+                updateCart();
+            });
+        });
+
+        function updateCart() {
+            cartItemsElement.innerHTML = '';
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+
+            if (cart.length === 0) {
+                cartEmptyElement.style.display = 'block';
+                checkoutButton.disabled = true;
+            } else {
+                cartEmptyElement.style.display = 'none';
+                checkoutButton.disabled = false;
+                cart.forEach((item, index) => {
+                    const itemElement = document.createElement('li');
+                    itemElement.className = 'cart-item';
+                    itemElement.innerHTML = `
+                        <span class="cart-item-name">${item.name}</span>
+                        <span class="cart-item-price">$${item.price.toFixed(2)}</span>
+                        <button class="cart-remove" data-index="${index}">Remove</button>
+                    `;
+                    cartItemsElement.appendChild(itemElement);
+                });
+
+                document.querySelectorAll('.cart-remove').forEach(removeButton => {
+                    removeButton.addEventListener('click', () => {
+                        const index = Number(removeButton.dataset.index);
+                        cart.splice(index, 1);
+                        updateCart();
+                    });
+                });
+            }
+
+            cartTotalElement.textContent = `Total: $${total.toFixed(2)}`;
+        }
+
+        checkoutButton.addEventListener('click', () => {
+            if (cart.length === 0) return;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Checkout started! Your order total is $${total.toFixed(2)}.`);
+            cart.length = 0;
+            updateCart();
+        });
+    </script>
+</body>
+</html>
